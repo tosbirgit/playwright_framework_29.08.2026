@@ -7,14 +7,16 @@ export class Loginpage extends BasePage {
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;
     readonly submitButton: Locator;
-    readonly successMessage: Locator;
+    readonly failureMessageForUsername: Locator;
+    readonly failureMessageForPassword: Locator;
 
     constructor(page: Page) {
         super(page);
         this.usernameInput = page.locator('#username');
         this.passwordInput = page.locator('#password');
         this.submitButton = page.locator('#submit');
-        this.successMessage = page.locator("//div[text()='Your username is invalid!']");
+        this.failureMessageForUsername = page.locator("//div[text()='Your username is invalid!']");
+        this.failureMessageForPassword = page.locator("//div[text()='Your password is invalid!']");
     }
     
 
@@ -29,8 +31,12 @@ export class Loginpage extends BasePage {
         await this.submitButton.click();
     }
 
-      async getSuccessMessage(): Promise<string | null> {
-        return this.successMessage.textContent();
+      async getfailureMessageForUsername(): Promise<string | null> {
+        return this.failureMessageForUsername.textContent();
+    }
+
+    async getfailureMessageForPassword(): Promise<string | null> {
+        return this.failureMessageForPassword.textContent();
     }
 
 }

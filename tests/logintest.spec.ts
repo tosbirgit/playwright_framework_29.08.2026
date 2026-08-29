@@ -12,9 +12,16 @@ test('login test with valid credentials', async ({ loginpage,logoutpage,basepage
 test('login test with invalid username', async ({ loginpage,logoutpage,basepage }) => {
   await basepage.goto('https://practicetestautomation.com/practice-test-login/');
   await loginpage.login('invaliduser', 'Password123');
-  const successMessage = await loginpage.getSuccessMessage();
-  expect(successMessage).toBe('Your username is invalid!');
+  const failureMessage = await loginpage.getfailureMessageForUsername();
+  expect(failureMessage).toBe('Your username is invalid!');
 })
 
+
+test('login test with invalid password', async ({ loginpage,logoutpage,basepage }) => {
+  await basepage.goto('https://practicetestautomation.com/practice-test-login/');
+  await loginpage.login('student', 'InvalidPassword');
+  const failureMessage = await loginpage.getfailureMessageForPassword();
+  expect(failureMessage).toBe('Your password is invalid!');
+})
 
 //npx playwright test tests/logintest.spec.ts --headed --project=chromium
